@@ -18,12 +18,15 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
+import com.crm.vtiger.pomclass.HomePage;
+import com.crm.vtiger.pomclass.LoginPage;
+
 public class BaseClass {
 	public WebDriver driver;
 	public ExcelUtility eUtil=new ExcelUtility();
 	public FileUtility fUtil=new FileUtility();
 	public WebDriverUtility wUtil=new WebDriverUtility();
-	
+	public HomePage homePage;
 	
 	@BeforeSuite(groups = {"smokeTest" , "regressionTest"})
 	public void configBS() {
@@ -62,18 +65,16 @@ public class BaseClass {
 		String password=fUtil.getPropertyKeyValue("password");
 		driver.get(url);
 		//login to the application
-		driver.findElement(By.name("user_name")).sendKeys(username);
-		driver.findElement(By.name("user_password")).sendKeys(password);
-		driver.findElement(By.id("submitButton")).click();
+		LoginPage loginPage=new LoginPage(driver);
+		loginPage.login(username, password);
 	}
 	
 	
 	
 	@AfterMethod(groups = {"smokeTest" , "regressionTest"})
 	public void tearDown() throws Throwable {
-		WebElement administrator=driver.findElement(By.xpath("//img[@src='themes/softed/images/user.PNG']"));
-		wUtil.mouseOver(driver, administrator);
-		wUtil.waitAndClick(driver.findElement(By.xpath("//a[text()='Sign Out']")));
+		
+		homePage.signOut();
 		
 	}
 	
