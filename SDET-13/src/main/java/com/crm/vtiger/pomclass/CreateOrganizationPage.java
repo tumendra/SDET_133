@@ -50,10 +50,11 @@ public class CreateOrganizationPage extends WebDriverUtility{
 	 * @param organizationName
 	 * @param industryType
 	 */
-	public void createOrganization(String organizationName,String industryType) {
+	public OragnizationInformationPage createOrganization(String organizationName,String industryType) {
 		organizationNameTF.sendKeys(organizationName);
 		SelectOption(industryDropDown, industryType);
 		saveBtn.click();
+		return new OragnizationInformationPage(driver);
 	}
 
 }

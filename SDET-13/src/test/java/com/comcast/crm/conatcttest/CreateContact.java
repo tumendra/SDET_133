@@ -23,8 +23,8 @@ public class CreateContact extends BaseClass{
 		
 		String lastName=eUtil.getExcelData("contact", 1, 2)+"_"+JavaUtility.getRandomData();
 		//Navigate to contacts
-		homePage =new HomePage(driver);
-		homePage.clickOnContactLink();
+		homePAge =new HomePage(driver);
+		homePAge.clickOnContactLink();
 		
 		//Create Contact with organization
 		ContactPage contactPage=new ContactPage(driver);
@@ -47,8 +47,8 @@ public class CreateContact extends BaseClass{
 		String orgName=eUtil.getExcelData("org", 1, 2)+"_"+JavaUtility.getRandomData();
 
 		//Navigate to organizations
-		homePage=new HomePage(driver);
-		homePage.clickOnOrganizationLink();
+		homePAge=new HomePage(driver);
+		homePAge.clickOnOrganizationLink();
 
 		//create organization
 		OrganizationPage orgPage=new OrganizationPage(driver);
@@ -68,8 +68,8 @@ public class CreateContact extends BaseClass{
 		
 		
 		//Navigate to contacts
-		homePage =new HomePage(driver);
-		homePage.clickOnContactLink();
+		homePAge =new HomePage(driver);
+		homePAge.clickOnContactLink();
 		
 		//Create Contact with organization
 		ContactPage contactPage=new ContactPage(driver);

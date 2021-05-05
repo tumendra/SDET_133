@@ -11,9 +11,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
-	
+	  WebDriver driver;
 	public LoginPage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
+		this.driver = driver;
 	}
 	
 	@FindBy(name = "user_name")
@@ -41,10 +42,11 @@ public class LoginPage {
 	 * @param username
 	 * @param password
 	 */
-	public void login(String username,String password) {
+	public HomePage login(String username,String password) {
 		usernameTF.sendKeys(username);
 		passwordTF.sendKeys(password);
 		loginBtn.click();
+		return new HomePage(driver);
 	}
 	
 	

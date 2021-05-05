@@ -18,6 +18,14 @@ public class OragnizationInformationPage {
 	@FindBy(xpath = "//span[@class='dvHeaderText']")
 	private WebElement organizationInfo;
 	
+	@FindBy(id="dtlview_Organization Name")
+	private WebElement orgNameEDtInfo;
+	
+	
+	public WebElement getOrgNameEDtInfo() {
+		return orgNameEDtInfo;
+	}
+
 	@FindBy(id = "dtlview_Industry")
 	private WebElement industryInfo;
 

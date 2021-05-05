@@ -1,5 +1,6 @@
 package com.crm.vtiger.GenericUtils;
 
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -26,11 +27,13 @@ public class BaseClass {
 	public ExcelUtility eUtil=new ExcelUtility();
 	public FileUtility fUtil=new FileUtility();
 	public WebDriverUtility wUtil=new WebDriverUtility();
-	public HomePage homePage;
+	public DataBaseUtilities dblib = new DataBaseUtilities();
+	public HomePage homePAge;
 	
 	@BeforeSuite(groups = {"smokeTest" , "regressionTest"})
-	public void configBS() {
+	public void configBS() throws Throwable {
 		//connect to DB
+		dblib.connectToDB();
 	}
 	
 	@BeforeTest(groups = {"smokeTest" , "regressionTest"})
@@ -59,21 +62,22 @@ public class BaseClass {
 	
 	
 	@BeforeMethod(groups = {"smokeTest" , "regressionTest"})
-	public void setUp() throws Throwable {
+	public void configBM() throws Throwable {
 		String url=fUtil.getPropertyKeyValue("url");
 		String username=fUtil.getPropertyKeyValue("username");
 		String password=fUtil.getPropertyKeyValue("password");
 		driver.get(url);
 		//login to the application
 		LoginPage loginPage=new LoginPage(driver);
-		loginPage.login(username, password);
+		homePAge = loginPage.login(username, password);
+		
 	}
 	
 	
 	
 	@AfterMethod(groups = {"smokeTest" , "regressionTest"})
-	public void tearDown() throws Throwable {
-		
+	public void configAM() throws Throwable {
+		HomePage  homePage = new HomePage(driver);
 		homePage.signOut();
 		
 	}
@@ -91,8 +95,9 @@ public class BaseClass {
 	}
 	
 	@AfterSuite(groups = {"smokeTest" , "regressionTest"})
-	public void configAS() {
+	public void configAS() throws Throwable {
 		// close DB connection
+		dblib.closeDb();
 	}
 
 
